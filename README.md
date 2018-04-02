@@ -29,4 +29,9 @@ Flyway Travel Agency started using microservices as they expanded.
 
 ### Instructions 
 
-To use the application, download it on your server. Start by typing `docker-compose up` and when the application is running, start the front end by typing `yarn start`. 
+To use the application, download it on your server. Start by typing `docker-compose up` and when the application is running, start the front end by typing `yarn start`.
+
+### Tests 
+
+* There are two feature tests for full CRUD each (users and favorites). They passed! 
+* There are 22 controllers unit tests for users and 22 controllers tests for favorites. They passed!
