@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button, Collection } from 'react-materialize';
 import axios from 'axios';
 
-import FavoriteList from './FavoritesComponents/FavoriteList';
+import FavoriteItem from './FavoritesComponents/FavoriteItem';
 
 let count = 0;
 class FavoritesPage extends Component {
@@ -10,7 +10,7 @@ class FavoritesPage extends Component {
         favorites: [],
         perPage:[],
         message: '',
-        edit: false
+        note:""
     }
 
     componentWillMount() {
@@ -54,19 +54,18 @@ class FavoritesPage extends Component {
 
     handleFavoriteChange = (event, index) => {
         const attributeToChange = event.target.notes
-        const newValue = event.target.value
-
-        const updatedFavoritesList = [...this.state.favorites]
-        const favoriteToUpdate = updatedFavoritesList[index]
-        favoriteToUpdate[attributeToChange] = newValue
-        
-        this.setState({favorites: updatedFavoritesList})
+        console.log(event.target.notes);
     }
 
-    updateFavorite = async (index) => {
+    updateFavorite = async (props) => {
+
         try {
-            const favoriteToUpdate = this.state.favorites[index]
-            await axios.patch(`/users/favorites/${favoriteToUpdate.id}`, favoriteToUpdate)
+            await axios({
+                method: 'patch',
+                url: `http://localhost:8080/users/favorites/${props.id}`,
+                data: props,
+                headers: { 'Access-Control-Allow-Origin': '*' }
+            })
         } catch(error) {
             console.log('Error updating notes!')
             console.log(error)
@@ -91,6 +90,8 @@ class FavoritesPage extends Component {
         }
     }
 
+
+
     render() {
         return (
             <div className="container">
@@ -103,11 +104,12 @@ class FavoritesPage extends Component {
                         <Collection>
                             {this.state.favorites.map((data, index) => {
                                 return (
-                                    <FavoriteList {...data} key={index} 
+                                    <FavoriteItem {...data} key={index} 
                                         deleteFavorite={this.deleteFavorite}
                                         handleFavoriteChange={this.handleFavoriteChange}
                                         updateFavorite={this.updateFavorite}
-                                        edit={this.state.edit} />
+                                        
+                                        />
                                 ) 
                             })}
                         </Collection>

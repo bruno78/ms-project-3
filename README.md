@@ -6,7 +6,9 @@ Big Green Acme NYC Tours has been on the market since 1985. It started small but
 
 A microservice application that will start using NYC Open data to track all the wifi hotspots in the city. 
 
-The reason for using a microservice is very simple. This application will have huge traffic of data and customers. It can be easily scaled by adding other apis, like restaurants and hotel with recommendations. If a service needs to be repaired, replaced, or updated it can easily be done without disrupting the others. 
+The reason for using a microservice is very simple. This application will have huge traffic of data and customers. It can be easily scaled by adding other services (apis: like restaurants and hotel with recommendations) which will have their own servers and managed by a api gateway. If a service needs to be repaired, replaced, or updated it can easily be done without disrupting the others. Monolithic applications handles everything. They can get complex very easy, and if they are in the same structure, it can be problematic if part of it needs to be restructured or needs to be fixed. Usually it has only one server which receives all the upcoming traffic which also can be problematic. 
+
+One of the problems that microservices can bring is
 
 ## Case Study
 

@@ -1,8 +1,36 @@
 import React, { Component } from 'react';
 import { CollectionItem, Row, Col, Icon, Button } from 'react-materialize';
 
-class FavoriteList extends Component {
+class FavoriteItem extends Component {
+    state = {
+        edit: false,
+        // currenItem: this.props
+        newFavorite: this.props,
+    }
 
+    toggleEdit(){
+        this.setState({
+            edit: !this.state.edit
+        })
+    }
+
+    handleChange = (event) => {
+        const attributeToChange = event.target.name
+        const newValue = event.target.value
+
+        const updateNewFavorite = {...this.state.newFavorite}
+        updateNewFavorite[attributeToChange] = newValue
+        console.log("attribute to change ", attributeToChange)
+        console.log("new value ", newValue)
+        this.setState({ newFavorite: updateNewFavorite })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        this.props.updateFavorite(this.state.newFavorite);
+        console.log("Inside form: " + Object.entries(this.state.newFavorite));
+    }
 
     render(){
         return (
@@ -35,18 +63,22 @@ class FavoriteList extends Component {
                         </Col>
                         <Col s={12}>
                             <p>Notes: </p>
-                            {this.props.edit ?
+                            {this.state.edit ?
                                 <div>
-                                    <textarea
-                                        name='notes'
-                                        onChange={(event) => this.props.handleFavoriteChange(event, this.props.index)}
-                                        onBlur={() => this.props.updateFavorite(this.props.index)}
-                                        value={this.props.notes} />
-                                    <Button>Save</Button>
+                                    <form onSubmit={this.handleSubmit} >
+                                        <input
+                                            name="notes"
+                                            defaultValue={this.props.notes}
+                                            onChange={this.handleChange} />
+                                        <div>
+                                            <input type="hidden" id="id" name="id" value={this.props.id} />
+                                        </div>
+                                        <input type="submit" value="Save" />
+                                    </form>
                                 </div> :
                                 <div>
                                 <p className='notes'>{this.props.notes}</p>
-                                <Button>Edit</Button>
+                                <Button onClick={() => this.toggleEdit()}>Edit</Button>
                             </div>
                             }
                             
@@ -67,4 +99,4 @@ class FavoriteList extends Component {
     }
 }
 
-export default FavoriteList;
+export default FavoriteItem;
