@@ -1,0 +1,22 @@
+{
+  "name": "project3-ui-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@blueprintjs/core": "^2.0.1",
+    "axios": "^0.18.0",
+    "firebase": "^4.12.1",
+    "react": "^16.2.0",
+    "react-materialize": "^2.1.2",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1",
+    "react-transition-group": "^2.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

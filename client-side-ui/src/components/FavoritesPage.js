@@ -1,0 +1,124 @@
+import React, { Component } from 'react';
+import {Button, Collection } from 'react-materialize';
+import axios from 'axios';
+
+import FavoriteList from './FavoritesComponents/FavoriteList';
+
+let count = 0;
+class FavoritesPage extends Component {
+    state = {
+        favorites: [],
+        perPage:[],
+        message: '',
+        edit: false
+    }
+
+    componentWillMount() {
+        const url = `http://localhost:8080/users/favorites/`;
+        
+        axios.get(url)
+            .then( response => {
+                let arr = [];
+                console.log(response.data);
+                for (let key in response.data){
+                    arr.push(response.data[key])
+                }
+                this.setState({favorites: arr});
+                this.setState({perPage: arr.slice(0, 5)});
+
+            })
+            .then(data => {
+                if(!data){
+                    this.setState({message: "no favorites yet!"})
+                }
+            })
+            .catch (err => {
+                console.log("Could not retrieve data from the server! " + err);
+                console.log(err.status);
+            })
+    }
+
+    changePage = param =>{
+        console.log(param)
+        let currentPage;
+
+        if (param) {
+            count += 5;
+        } else if (!param && count > 0){
+            count -= 5;
+        }
+
+        currentPage =  this.state.favorites.slice(count, count +5); 
+        this.setState({perPage: currentPage});
+    }
+
+    handleFavoriteChange = (event, index) => {
+        const attributeToChange = event.target.notes
+        const newValue = event.target.value
+
+        const updatedFavoritesList = [...this.state.favorites]
+        const favoriteToUpdate = updatedFavoritesList[index]
+        favoriteToUpdate[attributeToChange] = newValue
+        
+        this.setState({favorites: updatedFavoritesList})
+    }
+
+    updateFavorite = async (index) => {
+        try {
+            const favoriteToUpdate = this.state.favorites[index]
+            await axios.patch(`/users/favorites/${favoriteToUpdate.id}`, favoriteToUpdate)
+        } catch(error) {
+            console.log('Error updating notes!')
+            console.log(error)
+        }
+    }
+
+    deleteFavorite = async (faveId, index) => {
+        try {
+            await axios.delete(`http://localhost:8080/users/favorites/${faveId}`)
+                .then( res => {
+
+                    if(res.data === "OK") {
+                        const updatedFavoritesList = [...this.state.favorites]
+                        updatedFavoritesList.splice(index, 1)
+                        this.setState({favorites: updatedFavoritesList})
+                    }
+                })     
+
+        } catch (error) {
+            console.log(`Error deleting Idea with ID of ${faveId}`)
+            console.log(error)
+        }
+    }
+
+    render() {
+        return (
+            <div className="container">
+
+                <h2>My Favorite HotSpot Locations</h2>
+            
+                {this.state.favorites.length > 0 ?
+                    <div >
+                        <Button onClick={e => this.changePage(false)}>Prev</Button> <Button onClick={e => this.changePage(true)}>Next</Button>
+                        <Collection>
+                            {this.state.favorites.map((data, index) => {
+                                return (
+                                    <FavoriteList {...data} key={index} 
+                                        deleteFavorite={this.deleteFavorite}
+                                        handleFavoriteChange={this.handleFavoriteChange}
+                                        updateFavorite={this.updateFavorite}
+                                        edit={this.state.edit} />
+                                ) 
+                            })}
+                        </Collection>
+                    </div> : 
+                
+                this.state.message
+                    
+                }    
+            </div>   
+        )
+    }
+}
+
+export default FavoritesPage

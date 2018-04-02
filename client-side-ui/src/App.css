@@ -1,0 +1,124 @@
+body {
+  background-color: #33323f;
+  color: azure;
+}
+
+.title-page {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+}
+.title-page h4 {
+  text-align: center;
+}
+
+.input-field {
+  text-align: center;
+}
+
+input[type=text].input-field {
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+}
+
+.input-field .prefix {
+  font-size: 3rem;
+}
+
+.input-field label {
+  font-size: 2rem;
+  top: 0.5rem;
+}
+
+.input-field .prefix.active, 
+.input-field label.active,
+input[type=text].validate+label.active {
+  color: #ee6e73;
+}
+
+input[type=text]:focus:not([readonly]){
+  border-bottom: 1px solid #ee6e73;
+  box-shadow: 0 1px 0 0 #ee6e73;
+}
+
+.record-list {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  color: #444;
+  letter-spacing: 0.5px;
+}
+
+.record-list a {
+  color: #444;
+}
+.record-list a:hover {
+  color: #ee6e73
+}
+
+.collection {
+  border-radius: 0px;
+  border: 0px;
+}
+
+.collection .collection-item {
+  margin-bottom: 30px;
+}
+
+.collection .collection-item {
+  margin-bottom: 25px;
+  border-left: 7px solid white;
+  border-right: 7px solid white;
+}
+
+.collection .collection-item:hover {
+  border-left: 7px solid #ee6e73;
+}
+
+.record-list .material-icons {
+  font-size: 20px;
+}
+
+.collection strong {
+  font-weight: 700;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.bookmark {
+  margin-top: 15px;
+}
+.delete-button {
+  margin-top: 15px;
+}
+.record-title {
+  margin-bottom: 0px;
+}
+
+.red {
+  background-color: rgb(253, 60, 60)
+}
+
+.App {
+  text-align: center;
+}
+
+nav .brand-logo {
+  padding-left: 20px;
+  padding-top: 5px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
