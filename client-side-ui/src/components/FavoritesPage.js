@@ -66,6 +66,17 @@ class FavoritesPage extends Component {
                 data: props,
                 headers: { 'Access-Control-Allow-Origin': '*' }
             })
+            .then( response => {
+                const updatedFavorites = this.state.favorites 
+
+            //     for(let i; updatedFavorites.length; i++) {
+            //         if(updatedFavorites[i].id === props.id) {
+            //             updatedFavorites[i] = props
+            //         }
+            //     }
+                alert('Successfully updated!');
+            //     this.setState({favorties: updatedFavorites});
+            })
         } catch(error) {
             console.log('Error updating notes!')
             console.log(error)
@@ -82,6 +93,7 @@ class FavoritesPage extends Component {
                         updatedFavoritesList.splice(index, 1)
                         this.setState({favorites: updatedFavoritesList})
                     }
+                    alert("Successfully deleted!")
                 })     
 
         } catch (error) {

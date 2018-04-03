@@ -73,13 +73,12 @@ constructor(props){
                 notes: '',
                 user_id: 0
             };
-            // const newIdeaResponse = await axios.post(`/users/favorites`, props)
             await axios.post('http://localhost:8080/users/favorites/', newFavorite)
               .then(function (response) {
                     if(response.status === 200) {
                         console.log('Added to the database successfully!');
                     }
-                    console.log(response);
+                    alert('Successfully Saved!');
               })
               .catch(function (error) {
                 console.log(error);
